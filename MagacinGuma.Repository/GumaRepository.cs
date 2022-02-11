@@ -144,5 +144,51 @@ namespace MagacinGuma.Repository
             _loader.HideLoading();
             return isSuccessful;
         }
+
+        public List<Guma> GetGumaByParameter(int sifra, string proizvodjac, int tipGume)
+        {
+            _loader.ShowLoading();
+            List<Guma> gume = new List<Guma>();
+
+            try
+            {
+                SqlConnection con = new SqlConnection();
+                con.ConnectionString = Konekcija.conn;
+                con.Open();
+                SqlCommand cmd = new SqlCommand("Select * from Guma g inner join TipGume tg on g.GumaTip=tg.TipId where g.GumaId="+sifra+"or g.GumaProizvodjac='"+proizvodjac+"' or g.GumaTip="+tipGume, con);
+                SqlDataReader sdr = cmd.ExecuteReader();
+
+                while (sdr.Read())
+                {
+                    gume.Add(new Guma
+                    {
+                        GumaId = Convert.ToInt32(sdr["GumaId"]),
+                        GumaProizvodjac = sdr["GumaProizvodjac"].ToString(),
+                        GumaDimenzija = sdr["GumaDimenzija"].ToString(),
+                        GumaMaxBrzina = Convert.ToDouble(sdr["GumaMaxBrzina"]),
+                        GumaTip = new TipGume
+                        {
+                            TipId = Convert.ToInt32(sdr["TipId"]),
+                            TipNaziv = sdr["TipNaziv"].ToString(),
+                            TipOpis = sdr["TipOpis"].ToString()
+                        },
+                        GumaDatumKreiranja = Convert.ToDateTime(sdr["GumaDatumKreiranja"]),
+                        GumaKreiraoKorisnik = new Korisnik
+                        {
+                            KorisnikUsername = sdr["KorisnikUsername"].ToString()
+                        },
+                        GumaDatumIzmene = sdr["GumaDatumIzmene"].ToString()
+
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            _loader.HideLoading();
+            return gume;
+        }
     }
 }

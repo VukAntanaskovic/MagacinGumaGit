@@ -47,6 +47,35 @@ namespace MagacinGuma
             }
         }//logika za uklanjanje tabova ako korisnik nema prava na njih
 
+        public void FindGume(int sifra, string proizvodjac, int tipGume)
+        {
+            GumaRepository _gumaRepository = new GumaRepository(this);
+            List<Guma> gume = new List<Guma>();
+            DataTable dataTable = new DataTable();
+            dataTable.Columns.Add("Id");
+            dataTable.Columns.Add("Proizvodjac");
+            dataTable.Columns.Add("Dimenzija");
+            dataTable.Columns.Add("Maksimalna Brzina");
+            dataTable.Columns.Add("Tip gume");
+            dataTable.Columns.Add("Kolicina");
+            
+
+            try
+            {
+                gume = _gumaRepository.GetGumaByParameter(sifra,proizvodjac,tipGume);
+
+                foreach (var g in gume)
+                {
+                    dataTable.Rows.Add(g.GumaId, g.GumaProizvodjac, g.GumaDimenzija, g.GumaMaxBrzina, g.GumaTip.TipNaziv, g.GumaKolicina);
+                }
+
+                dgvPretragaGume.DataSource = dataTable;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Greska prilikom citanja iz baze " + ex.Message);
+            }
+        }
 
         public void LoadGume()
         {
@@ -101,6 +130,10 @@ namespace MagacinGuma
                 cmbTipGume.DataSource = tipoviGuma;
                 cmbTipGume.ValueMember = "TipId";
                 cmbTipGume.DisplayMember = "TipNaziv";
+
+                cmbPretragaTipGume.DataSource = tipoviGuma;
+                cmbPretragaTipGume.ValueMember = "TipId";
+                cmbPretragaTipGume.DisplayMember = "TipNaziv";
             }
         }
 
@@ -234,6 +267,18 @@ namespace MagacinGuma
             txtPassword.Text = "";
             pnlLogin.Visible = true;
             Session.SessionDestroy();
+        }
+
+        private void btnPretraga_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                FindGume(int.Parse(txtPretragaIDGume.Text),txtPretragaProizvodjac.Text,Convert.ToInt32(cmbPretragaTipGume.SelectedValue));
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }
