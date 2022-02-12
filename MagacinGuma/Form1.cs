@@ -23,6 +23,8 @@ namespace MagacinGuma
         Kupac(KupacId identity (1,1) PK, KupacIme, KupacPrezime, KupacAdresa), 
         Racun(RacunId identity(100, 1) PK, KreiraoKorisnik (FK na tabelu Korisnik), Kupac(FK na tabelu Kupac)),
         StavkeRacuna(StavkaId identity(1,1) PK, GumaId(FK na tabelu Guma), Kolicina, RacunId(FK na tabelu Racun))
+
+        database: magacingumadb
      */
     public partial class frmPocetna : Form, ILoader
     {
@@ -109,16 +111,47 @@ namespace MagacinGuma
             }
         }//ucitavanje guma u data grid
 
+        public void LoadKupac()
+        {
+            KupacRepository _kupacRepository = new KupacRepository(this);
+            List<Kupac> listaKupac = new List<Kupac>();
+            DataTable dataTable = new DataTable();
+            dataTable.Columns.Add("KupacId");
+            dataTable.Columns.Add("KupacIme");
+            dataTable.Columns.Add("KupacPrezime");
+            dataTable.Columns.Add("KupacAdresa");
+
+            try
+            {
+                listaKupac = _kupacRepository.GetKupac();
+
+                foreach (var lk in listaKupac)
+                {
+                    dataTable.Rows.Add(lk.KupacId,lk.KupacIme,lk.KupacPrezime,lk.KupacAdresa);
+                }
+
+                dataGridViewKupci.DataSource = dataTable;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Greska prilikom citanja iz baze " + ex.Message);
+            }
+        }//ucitavanje guma u data grid
+
 
         private void Form1_Load(object sender, EventArgs e)
         {
             List<TipGume> tipoviGuma = new List<TipGume>();
             GumaRepository _gumaRepository = new GumaRepository(this);
+            List<Kupac> listaKupac = new List<Kupac>();
+            KupacRepository _kupacRepository = new KupacRepository(this);
 
             try
             {
                 tipoviGuma = _gumaRepository.GetTipGume();
                 LoadGume();
+                listaKupac = _kupacRepository.GetKupac();
+                LoadKupac();
             }
             catch
             {
@@ -221,12 +254,12 @@ namespace MagacinGuma
                     }
                     else
                     {
-                        MessageBox.Show("Greska prilikom kreiranja gume");
+                        MessageBox.Show("Greska prilikom azuriranja gume");
                     }
                 }
                 catch(Exception ex)
                 {
-                    MessageBox.Show("Greska prilikom kreiranja gume " + ex.Message);
+                    MessageBox.Show("Greska prilikom azuriranja gume " + ex.Message);
                 }
             }
             else
@@ -278,6 +311,86 @@ namespace MagacinGuma
             catch(Exception ex)
             {
                 MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void btnUnesiNovogKorisnika_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(tbUnesiKupacIme.Text) && !string.IsNullOrEmpty(tbUnesiKupacPrezime.Text)
+                && !string.IsNullOrEmpty(tbUnesiKupacAdresa.Text))
+            {
+                KupacRepository _kupacRepository = new KupacRepository(this);
+
+                Kupac kupac = new Kupac
+                {
+                    KupacIme = tbUnesiKupacIme.Text,
+                    KupacPrezime = tbUnesiKupacPrezime.Text,
+                    KupacAdresa =tbUnesiKupacAdresa.Text
+                };
+
+                try
+                {
+                    if (_kupacRepository.NewKupac(kupac))
+                    {
+                        MessageBox.Show("Uspesno kreiran kupac");
+                        LoadKupac();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Greska prilikom kreiranja kupca");
+                    }
+                }
+                catch
+                {
+                    MessageBox.Show("Greska prilikom kreiranja kupca");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Molimo popunite sva polja");
+            }
+        }//unos novog kupca
+
+        private void btnAzurirajKupca_Click(object sender, EventArgs e)
+        {
+
+            if (!string.IsNullOrEmpty(tbAzurirajKupacIme.Text) &&
+                !string.IsNullOrEmpty(tbAzurirajKupacPrezime.Text) &&
+                !string.IsNullOrEmpty(tbAzurirajKupacAdresu.Text))
+            {
+                KupacRepository _kupacRepository = new KupacRepository(this);
+
+                try
+                {
+                    if (_kupacRepository.UpdateKupac(int.Parse(tbAzurirajKupacId.Text),tbAzurirajKupacIme.Text,tbAzurirajKupacPrezime.Text,tbAzurirajKupacAdresu.Text))
+                    {
+                        MessageBox.Show("Uspesno ste azurirali kupca " + tbAzurirajKupacId.Text);
+                        LoadKupac();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Greska prilikom azuriranja kupca");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Greska prilikom azuriranja kupca " + ex.Message);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Molimo popunite sva polja");
+            }
+        }
+
+        private void dataGridViewKupci_SelectionChanged(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow row in dataGridViewKupci.SelectedRows)
+            {
+                tbAzurirajKupacId.Text = row.Cells[0].Value.ToString();
+                tbAzurirajKupacIme.Text = row.Cells[1].Value.ToString();
+                tbAzurirajKupacPrezime.Text = row.Cells[2].Value.ToString();
+                tbAzurirajKupacAdresu.Text = row.Cells[3].Value.ToString();
             }
         }
     }
