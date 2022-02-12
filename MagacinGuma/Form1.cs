@@ -14,15 +14,23 @@ using System.Windows.Forms;
 namespace MagacinGuma
 {
     /*                  #TODO               
-        - U tabu Stanje u magacinu, kreirati data grid i filtere kao sto su dimenzija, proizvodjac...
+        - Na tabu Korisnici treba obezbediti logiku za manipulacijom Korisnicima sistema 
+        a ne Kupcima (Kupci ce biti na tabu prodaja kao dodatna funkcija, to cemo na kraju).
 
-        - Napraviti logiku za pregled korisnika, registraciju novih i azuriranje postojecih (tab Korisnici), pratiti istu logiku Guma (tab Gume)
-        (Kreirati KorisnikRepository u Repository projektu, tamo cupati podatke iz baze)
+        *Instrukcije*
+        - Dodati sve text boxove koji su potrebni za unos korisnika u bazu
+        - Napraviti logiku za punjenje combo boxa iz baze tabela Rola (primer moze da bude GumaRepository metoda GetTipGume)
 
-        - Kreirati tabele u bazi: 
-        Kupac(KupacId identity (1,1) PK, KupacIme, KupacPrezime, KupacAdresa), 
-        Racun(RacunId identity(100, 1) PK, KreiraoKorisnik (FK na tabelu Korisnik), Kupac(FK na tabelu Kupac)),
-        StavkeRacuna(StavkaId identity(1,1) PK, GumaId(FK na tabelu Guma), Kolicina, RacunId(FK na tabelu Racun))
+        pr. za punjenje comboboxa
+        combobox.DataSource = role (List<Rola> koju vadimo iz repository metode);
+        cmbTipGume.ValueMember = "RolaId";
+        cmbTipGume.DisplayMember = "RolaNaziv";
+
+        *Opis*
+        - Napraviti novu klasu Rola(RolaId : int, RolaNaziv : string)
+        - Napraviti novu Repository metodu u KorisnikRepository klasi -> GetRole
+        - Obezbediti da na FormLoad event bude napunjen combo box na tabu za unos korisnika
+        - Izmeniti metode u KorisnikRepository da se bave manipulacijom Korisnika (tabela Korisnik)
 
         database: magacingumadb
      */
@@ -49,7 +57,7 @@ namespace MagacinGuma
             }
         }//logika za uklanjanje tabova ako korisnik nema prava na njih
 
-        public void FindGume(int sifra, string proizvodjac, int tipGume)
+        public void FindGume(int? sifra, string proizvodjac, int? tipGume)
         {
             GumaRepository _gumaRepository = new GumaRepository(this);
             List<Guma> gume = new List<Guma>();
@@ -187,7 +195,7 @@ namespace MagacinGuma
         private void btnUnosGume_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(txtGumaProizvodjac.Text) && !string.IsNullOrEmpty(txtGumaDimenzije.Text)
-                && numericGumaMaxBrzina.Value > 0) 
+                && numericGumaMaxBrzina.Value > 0 && Convert.ToInt32(cmbTipGume.SelectedValue) > 0) 
             {
                 GumaRepository _gumaRepository = new GumaRepository(this);
                 Guma guma = new Guma
@@ -300,13 +308,18 @@ namespace MagacinGuma
             txtPassword.Text = "";
             pnlLogin.Visible = true;
             Session.SessionDestroy();
+            Application.Restart();
         }
 
         private void btnPretraga_Click(object sender, EventArgs e)
         {
+            int sifra = 0;
+
+            int.TryParse(txtPretragaIDGume.Text, out sifra);
+
             try
             {
-                FindGume(int.Parse(txtPretragaIDGume.Text),txtPretragaProizvodjac.Text,Convert.ToInt32(cmbPretragaTipGume.SelectedValue));
+                FindGume(sifra ,txtPretragaProizvodjac.Text,Convert.ToInt32(cmbPretragaTipGume.SelectedValue));
             }
             catch(Exception ex)
             {

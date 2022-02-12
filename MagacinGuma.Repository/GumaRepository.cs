@@ -29,6 +29,13 @@ namespace MagacinGuma.Repository
                 SqlCommand cmd = new SqlCommand("SELECT * FROM TipGume ORDER BY 2 ASC", con);
                 SqlDataReader sdr = cmd.ExecuteReader();
 
+                tipoviGume.Add(new TipGume
+                {
+                    TipId = 0,
+                    TipNaziv = "--Select--",
+                    TipOpis = "--Select--"
+                });
+
                 while (sdr.Read())
                 {
                     tipoviGume.Add(new TipGume
@@ -145,17 +152,33 @@ namespace MagacinGuma.Repository
             return isSuccessful;
         }
 
-        public List<Guma> GetGumaByParameter(int sifra, string proizvodjac, int tipGume)
+        public List<Guma> GetGumaByParameter(int? sifra, string proizvodjac, int? tipGume)
         {
             _loader.ShowLoading();
             List<Guma> gume = new List<Guma>();
+            string filter = "WHERE 1=1";
+
+            if(sifra != null && sifra > 0)
+            {
+                filter += " AND GumaId=" + sifra;
+            }
+
+            if (!string.IsNullOrEmpty(proizvodjac))
+            {
+                filter += " AND GumaProizvodjac='" + proizvodjac + "'";
+            }
+
+            if(tipGume > 0 && tipGume != null)
+            {
+                filter += " AND GumaTip=" + tipGume;
+            }
 
             try
             {
                 SqlConnection con = new SqlConnection();
                 con.ConnectionString = Konekcija.conn;
                 con.Open();
-                SqlCommand cmd = new SqlCommand("Select * from Guma g inner join TipGume tg on g.GumaTip=tg.TipId where g.GumaId="+sifra+"or g.GumaProizvodjac='"+proizvodjac+"' or g.GumaTip="+tipGume, con);
+                SqlCommand cmd = new SqlCommand("Select * from Guma g inner join TipGume tg on g.GumaTip=tg.TipId "+filter, con);
                 SqlDataReader sdr = cmd.ExecuteReader();
 
                 while (sdr.Read())
@@ -166,6 +189,7 @@ namespace MagacinGuma.Repository
                         GumaProizvodjac = sdr["GumaProizvodjac"].ToString(),
                         GumaDimenzija = sdr["GumaDimenzija"].ToString(),
                         GumaMaxBrzina = Convert.ToDouble(sdr["GumaMaxBrzina"]),
+                        GumaKolicina = Convert.ToInt32(sdr["GumaKolicina"]),
                         GumaTip = new TipGume
                         {
                             TipId = Convert.ToInt32(sdr["TipId"]),
@@ -173,10 +197,6 @@ namespace MagacinGuma.Repository
                             TipOpis = sdr["TipOpis"].ToString()
                         },
                         GumaDatumKreiranja = Convert.ToDateTime(sdr["GumaDatumKreiranja"]),
-                        GumaKreiraoKorisnik = new Korisnik
-                        {
-                            KorisnikUsername = sdr["KorisnikUsername"].ToString()
-                        },
                         GumaDatumIzmene = sdr["GumaDatumIzmene"].ToString()
 
                     });
