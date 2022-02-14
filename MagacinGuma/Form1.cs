@@ -348,7 +348,6 @@ namespace MagacinGuma
                     KorisnikPrezime = tbUnesiKorisnikPrezime.Text,
                     KorisnikUsername =tbUnesiKorisnikUsername.Text,
                     KorisnikPassword = tbUnesiKorisnikPassword.Text,
-                    //uzeti role preko Role klase
                     KorisnikRola = Convert.ToInt32(cmbKorisnikRola.SelectedValue)
                 };
                 
