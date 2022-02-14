@@ -35,6 +35,8 @@
             this.izlogujteSeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabProdaja = new System.Windows.Forms.TabPage();
             this.tabMagacin = new System.Windows.Forms.TabPage();
+            this.lblNePostojiUnos = new System.Windows.Forms.Label();
+            this.dgvPretragaGume = new System.Windows.Forms.DataGridView();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.btnPretraga = new System.Windows.Forms.Button();
             this.cmbPretragaTipGume = new System.Windows.Forms.ComboBox();
@@ -96,10 +98,20 @@
             this.label11 = new System.Windows.Forms.Label();
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.txtUsername = new System.Windows.Forms.TextBox();
-            this.dgvPretragaGume = new System.Windows.Forms.DataGridView();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label22 = new System.Windows.Forms.Label();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.label23 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
+            this.magacingumadbDataSet1 = new MagacinGuma.Repository.magacingumadbDataSet();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
             this.tabCtr.SuspendLayout();
             this.ctxlogout.SuspendLayout();
             this.tabMagacin.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvPretragaGume)).BeginInit();
             this.groupBox3.SuspendLayout();
             this.tabGume.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -107,13 +119,17 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvGume)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericGumaMaxBrzina)).BeginInit();
+            this.tabPorucivanje.SuspendLayout();
             this.tabKorisnici.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewKupci)).BeginInit();
             this.groupBoxAzuriranjeKupac.SuspendLayout();
             this.groupBoxUnosKupaca.SuspendLayout();
             this.pnlLoading.SuspendLayout();
             this.pnlLogin.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvPretragaGume)).BeginInit();
+            this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.magacingumadbDataSet1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // tabCtr
@@ -155,7 +171,7 @@
             this.tabProdaja.ForeColor = System.Drawing.SystemColors.ControlText;
             this.tabProdaja.Location = new System.Drawing.Point(4, 22);
             this.tabProdaja.Name = "tabProdaja";
-            this.tabProdaja.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabProdaja.Padding = new System.Windows.Forms.Padding(3);
             this.tabProdaja.Size = new System.Drawing.Size(1336, 677);
             this.tabProdaja.TabIndex = 0;
             this.tabProdaja.Text = "Prodaja";
@@ -163,14 +179,49 @@
             // tabMagacin
             // 
             this.tabMagacin.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.tabMagacin.Controls.Add(this.lblNePostojiUnos);
             this.tabMagacin.Controls.Add(this.dgvPretragaGume);
             this.tabMagacin.Controls.Add(this.groupBox3);
             this.tabMagacin.Location = new System.Drawing.Point(4, 22);
             this.tabMagacin.Name = "tabMagacin";
-            this.tabMagacin.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabMagacin.Padding = new System.Windows.Forms.Padding(3);
             this.tabMagacin.Size = new System.Drawing.Size(1336, 677);
             this.tabMagacin.TabIndex = 1;
             this.tabMagacin.Text = "Stanje u magacinu";
+            // 
+            // lblNePostojiUnos
+            // 
+            this.lblNePostojiUnos.AutoSize = true;
+            this.lblNePostojiUnos.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.lblNePostojiUnos.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNePostojiUnos.ForeColor = System.Drawing.Color.DarkRed;
+            this.lblNePostojiUnos.Location = new System.Drawing.Point(13, 88);
+            this.lblNePostojiUnos.Name = "lblNePostojiUnos";
+            this.lblNePostojiUnos.Size = new System.Drawing.Size(422, 25);
+            this.lblNePostojiUnos.TabIndex = 2;
+            this.lblNePostojiUnos.Text = "Ne postoji guma sa unetim parametrom";
+            this.lblNePostojiUnos.Visible = false;
+            // 
+            // dgvPretragaGume
+            // 
+            this.dgvPretragaGume.AllowUserToAddRows = false;
+            this.dgvPretragaGume.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvPretragaGume.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvPretragaGume.BackgroundColor = System.Drawing.SystemColors.ActiveCaption;
+            this.dgvPretragaGume.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvPretragaGume.Location = new System.Drawing.Point(6, 73);
+            this.dgvPretragaGume.Margin = new System.Windows.Forms.Padding(2);
+            this.dgvPretragaGume.MultiSelect = false;
+            this.dgvPretragaGume.Name = "dgvPretragaGume";
+            this.dgvPretragaGume.ReadOnly = true;
+            this.dgvPretragaGume.RowHeadersWidth = 51;
+            this.dgvPretragaGume.RowTemplate.Height = 24;
+            this.dgvPretragaGume.RowTemplate.ReadOnly = true;
+            this.dgvPretragaGume.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvPretragaGume.Size = new System.Drawing.Size(1325, 598);
+            this.dgvPretragaGume.TabIndex = 1;
             // 
             // groupBox3
             // 
@@ -193,7 +244,7 @@
             // btnPretraga
             // 
             this.btnPretraga.Location = new System.Drawing.Point(534, 28);
-            this.btnPretraga.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnPretraga.Margin = new System.Windows.Forms.Padding(2);
             this.btnPretraga.Name = "btnPretraga";
             this.btnPretraga.Size = new System.Drawing.Size(75, 25);
             this.btnPretraga.TabIndex = 5;
@@ -205,7 +256,7 @@
             // 
             this.cmbPretragaTipGume.FormattingEnabled = true;
             this.cmbPretragaTipGume.Location = new System.Drawing.Point(329, 33);
-            this.cmbPretragaTipGume.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cmbPretragaTipGume.Margin = new System.Windows.Forms.Padding(2);
             this.cmbPretragaTipGume.Name = "cmbPretragaTipGume";
             this.cmbPretragaTipGume.Size = new System.Drawing.Size(165, 21);
             this.cmbPretragaTipGume.TabIndex = 4;
@@ -223,7 +274,7 @@
             // txtPretragaProizvodjac
             // 
             this.txtPretragaProizvodjac.Location = new System.Drawing.Point(170, 36);
-            this.txtPretragaProizvodjac.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtPretragaProizvodjac.Margin = new System.Windows.Forms.Padding(2);
             this.txtPretragaProizvodjac.Name = "txtPretragaProizvodjac";
             this.txtPretragaProizvodjac.Size = new System.Drawing.Size(122, 20);
             this.txtPretragaProizvodjac.TabIndex = 2;
@@ -499,12 +550,16 @@
             // 
             // tabPorucivanje
             // 
+            this.tabPorucivanje.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.tabPorucivanje.Controls.Add(this.button3);
+            this.tabPorucivanje.Controls.Add(this.button2);
+            this.tabPorucivanje.Controls.Add(this.dataGridView1);
+            this.tabPorucivanje.Controls.Add(this.groupBox4);
             this.tabPorucivanje.Location = new System.Drawing.Point(4, 22);
             this.tabPorucivanje.Name = "tabPorucivanje";
             this.tabPorucivanje.Size = new System.Drawing.Size(1336, 677);
             this.tabPorucivanje.TabIndex = 3;
             this.tabPorucivanje.Text = "Porucivanje robe";
-            this.tabPorucivanje.UseVisualStyleBackColor = true;
             // 
             // tabKnjizenje
             // 
@@ -835,26 +890,111 @@
             this.txtUsername.Size = new System.Drawing.Size(328, 20);
             this.txtUsername.TabIndex = 0;
             // 
-            // dgvPretragaGume
+            // groupBox4
             // 
-            this.dgvPretragaGume.AllowUserToAddRows = false;
-            this.dgvPretragaGume.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox4.Controls.Add(this.button1);
+            this.groupBox4.Controls.Add(this.label23);
+            this.groupBox4.Controls.Add(this.numericUpDown1);
+            this.groupBox4.Controls.Add(this.label22);
+            this.groupBox4.Controls.Add(this.textBox1);
+            this.groupBox4.Location = new System.Drawing.Point(6, 3);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(1325, 86);
+            this.groupBox4.TabIndex = 0;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Unos artikala";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(6, 45);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(246, 20);
+            this.textBox1.TabIndex = 0;
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(7, 26);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(51, 13);
+            this.label22.TabIndex = 1;
+            this.label22.Text = "Artikal Id:";
+            // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.Location = new System.Drawing.Point(280, 45);
+            this.numericUpDown1.Maximum = new decimal(new int[] {
+            500,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDown1.TabIndex = 2;
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(277, 26);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(47, 13);
+            this.label23.TabIndex = 3;
+            this.label23.Text = "Kolicina:";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(430, 43);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 4;
+            this.button1.Text = "Dodajte";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // magacingumadbDataSet1
+            // 
+            this.magacingumadbDataSet1.DataSetName = "magacingumadbDataSet";
+            this.magacingumadbDataSet1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgvPretragaGume.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvPretragaGume.BackgroundColor = System.Drawing.SystemColors.ActiveCaption;
-            this.dgvPretragaGume.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvPretragaGume.Location = new System.Drawing.Point(6, 73);
-            this.dgvPretragaGume.Margin = new System.Windows.Forms.Padding(2);
-            this.dgvPretragaGume.MultiSelect = false;
-            this.dgvPretragaGume.Name = "dgvPretragaGume";
-            this.dgvPretragaGume.ReadOnly = true;
-            this.dgvPretragaGume.RowHeadersWidth = 51;
-            this.dgvPretragaGume.RowTemplate.Height = 24;
-            this.dgvPretragaGume.RowTemplate.ReadOnly = true;
-            this.dgvPretragaGume.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvPretragaGume.Size = new System.Drawing.Size(1325, 598);
-            this.dgvPretragaGume.TabIndex = 1;
+            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.ActiveCaption;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(6, 95);
+            this.dataGridView1.MultiSelect = false;
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
+            this.dataGridView1.RowHeadersWidth = 51;
+            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridView1.Size = new System.Drawing.Size(1325, 531);
+            this.dataGridView1.TabIndex = 2;
+            // 
+            // button2
+            // 
+            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.button2.Location = new System.Drawing.Point(6, 647);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 3;
+            this.button2.Text = "Potvrdite";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // button3
+            // 
+            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.button3.Location = new System.Drawing.Point(87, 647);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.TabIndex = 4;
+            this.button3.Text = "Obrisite";
+            this.button3.UseVisualStyleBackColor = true;
             // 
             // frmPocetna
             // 
@@ -873,6 +1013,8 @@
             this.tabCtr.ResumeLayout(false);
             this.ctxlogout.ResumeLayout(false);
             this.tabMagacin.ResumeLayout(false);
+            this.tabMagacin.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvPretragaGume)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.tabGume.ResumeLayout(false);
@@ -883,6 +1025,7 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericGumaMaxBrzina)).EndInit();
+            this.tabPorucivanje.ResumeLayout(false);
             this.tabKorisnici.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewKupci)).EndInit();
             this.groupBoxAzuriranjeKupac.ResumeLayout(false);
@@ -893,7 +1036,11 @@
             this.pnlLoading.PerformLayout();
             this.pnlLogin.ResumeLayout(false);
             this.pnlLogin.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvPretragaGume)).EndInit();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.magacingumadbDataSet1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -967,6 +1114,17 @@
         private System.Windows.Forms.TextBox tbAzurirajKupacId;
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.DataGridView dgvPretragaGume;
+        private System.Windows.Forms.Label lblNePostojiUnos;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.TextBox textBox1;
+        private Repository.magacingumadbDataSet magacingumadbDataSet1;
     }
 }
 
