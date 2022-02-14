@@ -130,47 +130,47 @@ namespace MagacinGuma
             }
         }//ucitavanje guma u data grid
 
-        public void LoadKupac()
+        public void LoadKorisnik() 
         {
-            KupacRepository _kupacRepository = new KupacRepository(this);
-            List<Kupac> listaKupac = new List<Kupac>();
+            KorisnikRepository _korisnikRepository = new KorisnikRepository(this);
+            List<Korisnik> listaKorisnik = new List<Korisnik>();
             DataTable dataTable = new DataTable();
-            dataTable.Columns.Add("KupacId");
-            dataTable.Columns.Add("KupacIme");
-            dataTable.Columns.Add("KupacPrezime");
-            dataTable.Columns.Add("KupacAdresa");
+            dataTable.Columns.Add("ID"); 
+            dataTable.Columns.Add("Ime");
+            dataTable.Columns.Add("Prezime");
+            dataTable.Columns.Add("Aktivan");
 
             try
             {
-                listaKupac = _kupacRepository.GetKupac();
+                listaKorisnik = _korisnikRepository.GetKorisnik();
 
-                foreach (var lk in listaKupac)
+                foreach (var lk in listaKorisnik)
                 {
-                    dataTable.Rows.Add(lk.KupacId,lk.KupacIme,lk.KupacPrezime,lk.KupacAdresa);
+                    dataTable.Rows.Add(lk.KorisnikId,lk.KorisnikIme,lk.KorisnikPrezime,lk.KorisnikAktivan);
                 }
 
-                dataGridViewKupci.DataSource = dataTable;
+                dataGridViewKorisnik.DataSource = dataTable;
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Greska prilikom citanja iz baze " + ex.Message);
             }
-        }//ucitavanje guma u data grid
+        }//ucitavanje korisnika u data grid
 
 
         private void Form1_Load(object sender, EventArgs e)
         {
             List<TipGume> tipoviGuma = new List<TipGume>();
             GumaRepository _gumaRepository = new GumaRepository(this);
-            List<Kupac> listaKupac = new List<Kupac>();
-            KupacRepository _kupacRepository = new KupacRepository(this);
+            List<Korisnik> listaKorisnik = new List<Korisnik>();
+            KorisnikRepository _korisnikRepository = new KorisnikRepository(this);
 
             try
             {
                 tipoviGuma = _gumaRepository.GetTipGume();
                 LoadGume();
-                listaKupac = _kupacRepository.GetKupac();
-                LoadKupac();
+                listaKorisnik = _korisnikRepository.GetKorisnik();
+                LoadKorisnik();
             }
             catch
             {
@@ -186,6 +186,13 @@ namespace MagacinGuma
                 cmbPretragaTipGume.DataSource = tipoviGuma;
                 cmbPretragaTipGume.ValueMember = "TipId";
                 cmbPretragaTipGume.DisplayMember = "TipNaziv";
+            }
+
+            if (listaKorisnik != null)
+            {
+                cmbKorisnikRola.DataSource = listaKorisnik;
+                cmbKorisnikRola.ValueMember = "KorisnikId";
+                cmbKorisnikRola.DisplayMember = "KorisnikRola";
             }
         }
 
@@ -340,65 +347,69 @@ namespace MagacinGuma
 
         private void btnUnesiNovogKorisnika_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(tbUnesiKupacIme.Text) && !string.IsNullOrEmpty(tbUnesiKupacPrezime.Text)
-                && !string.IsNullOrEmpty(tbUnesiKupacAdresa.Text))
+            if (!string.IsNullOrEmpty(tbUnesiKorisnikIme.Text) && !string.IsNullOrEmpty(tbUnesiKorisnikPrezime.Text)
+                && !string.IsNullOrEmpty(tbUnesiKorisnikUsername.Text) && !string.IsNullOrEmpty(tbUnesiKorisnikPassword.Text)
+                && Convert.ToInt32(cmbKorisnikRola.SelectedValue)>0)
             {
-                KupacRepository _kupacRepository = new KupacRepository(this);
+                KorisnikRepository _korisnikRepository = new KorisnikRepository(this);
 
-                Kupac kupac = new Kupac
+                Korisnik korisnik = new Korisnik
                 {
-                    KupacIme = tbUnesiKupacIme.Text,
-                    KupacPrezime = tbUnesiKupacPrezime.Text,
-                    KupacAdresa =tbUnesiKupacAdresa.Text
+                    KorisnikIme = tbUnesiKorisnikIme.Text,
+                    KorisnikPrezime = tbUnesiKorisnikPrezime.Text,
+                    KorisnikUsername =tbUnesiKorisnikUsername.Text,
+                    KorisnikPassword = tbUnesiKorisnikPassword.Text,
+                    //uzeti role preko Role klase
+                    KorisnikRola = Convert.ToInt32(cmbKorisnikRola.SelectedValue)
                 };
-
+                
                 try
                 {
-                    if (_kupacRepository.NewKupac(kupac))
+                    if (_korisnikRepository.NewKorisnik(korisnik))
                     {
-                        MessageBox.Show("Uspesno kreiran kupac");
-                        LoadKupac();
+                        MessageBox.Show("Uspesno kreiran korisnik");
+                        LoadKorisnik();
                     }
                     else
                     {
-                        MessageBox.Show("Greska prilikom kreiranja kupca");
+                        MessageBox.Show("Greska prilikom kreiranja korisnika");
                     }
                 }
-                catch
+                catch(Exception ex)
                 {
-                    MessageBox.Show("Greska prilikom kreiranja kupca");
+                    MessageBox.Show("Greska prilikom kreiranja korisnika "+ex.Message);
                 }
             }
             else
             {
                 MessageBox.Show("Molimo popunite sva polja");
             }
-        }//unos novog kupca
+        }//unos novog korisnika
 
-        private void btnAzurirajKupca_Click(object sender, EventArgs e)
+        private void btnAzurirajKorisnik_Click(object sender, EventArgs e)
         {
 
-            if (!string.IsNullOrEmpty(tbAzurirajKupacIme.Text) &&
-                !string.IsNullOrEmpty(tbAzurirajKupacPrezime.Text) &&
-                !string.IsNullOrEmpty(tbAzurirajKupacAdresu.Text))
+            if (!string.IsNullOrEmpty(tbAzurirajKorisnikIme.Text) &&
+                !string.IsNullOrEmpty(tbAzurirajKorisnikPrezime.Text) &&
+                cbAzurirajKorisnikAktivan!=null)
             {
-                KupacRepository _kupacRepository = new KupacRepository(this);
+                KorisnikRepository _korisnikRepository = new KorisnikRepository(this);
 
                 try
                 {
-                    if (_kupacRepository.UpdateKupac(int.Parse(tbAzurirajKupacId.Text),tbAzurirajKupacIme.Text,tbAzurirajKupacPrezime.Text,tbAzurirajKupacAdresu.Text))
+                    if (_korisnikRepository.UpdateKorisnik(int.Parse(tbAzurirajKorisnikId.Text),tbAzurirajKorisnikIme.Text,tbAzurirajKorisnikPrezime.Text,Boolean.Parse(cbAzurirajKorisnikAktivan.Checked.ToString())))
                     {
-                        MessageBox.Show("Uspesno ste azurirali kupca " + tbAzurirajKupacId.Text);
-                        LoadKupac();
+                        MessageBox.Show("Uspesno ste azurirali korisnika " + tbAzurirajKorisnikId.Text);
+                        LoadKorisnik();
                     }
                     else
                     {
-                        MessageBox.Show("Greska prilikom azuriranja kupca");
+                        MessageBox.Show("Greska prilikom azuriranja v");
                     }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Greska prilikom azuriranja kupca " + ex.Message);
+                    MessageBox.Show("Greska prilikom azuriranja korisnika " + ex.Message);
                 }
             }
             else
@@ -407,15 +418,17 @@ namespace MagacinGuma
             }
         }
 
-        private void dataGridViewKupci_SelectionChanged(object sender, EventArgs e)
+        private void dataGridViewKorisnik_SelectionChanged(object sender, EventArgs e)
         {
-            foreach (DataGridViewRow row in dataGridViewKupci.SelectedRows)
+            foreach (DataGridViewRow row in dataGridViewKorisnik.SelectedRows)
             {
-                tbAzurirajKupacId.Text = row.Cells[0].Value.ToString();
-                tbAzurirajKupacIme.Text = row.Cells[1].Value.ToString();
-                tbAzurirajKupacPrezime.Text = row.Cells[2].Value.ToString();
-                tbAzurirajKupacAdresu.Text = row.Cells[3].Value.ToString();
+                tbAzurirajKorisnikId.Text = row.Cells[0].Value.ToString();
+                tbAzurirajKorisnikIme.Text = row.Cells[1].Value.ToString();
+                tbAzurirajKorisnikPrezime.Text = row.Cells[2].Value.ToString();
+
+                cbAzurirajKorisnikAktivan.Checked=Convert.ToBoolean(row.Cells[3].Value.ToString());
             }
         }
+
     }
 }
