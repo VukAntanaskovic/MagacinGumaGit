@@ -74,12 +74,21 @@ namespace MagacinGuma
             {
                 gume = _gumaRepository.GetGumaByParameter(sifra,proizvodjac,tipGume);
 
-                foreach (var g in gume)
+                if (gume.Count() > 0)
                 {
-                    dataTable.Rows.Add(g.GumaId, g.GumaProizvodjac, g.GumaDimenzija, g.GumaMaxBrzina, g.GumaTip.TipNaziv, g.GumaKolicina);
-                }
 
-                dgvPretragaGume.DataSource = dataTable;
+                    foreach (var g in gume)
+                    {
+                        dataTable.Rows.Add(g.GumaId, g.GumaProizvodjac, g.GumaDimenzija, g.GumaMaxBrzina, g.GumaTip.TipNaziv, g.GumaKolicina);
+                    }
+
+                    lblNePostojiUnos.Visible = false;
+                    dgvPretragaGume.DataSource = dataTable;
+                }
+                else
+                {
+                    lblNePostojiUnos.Visible = true;
+                }
             }
             catch (Exception ex)
             {
