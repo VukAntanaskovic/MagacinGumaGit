@@ -33,6 +33,8 @@ namespace MagacinGuma
         - Izmeniti metode u KorisnikRepository da se bave manipulacijom Korisnika (tabela Korisnik)
 
         database: magacingumadb
+
+        rollback
      */
     public partial class frmPocetna : Form, ILoader
     {
