@@ -210,5 +210,46 @@ namespace MagacinGuma.Repository
             _loader.HideLoading();
             return gume;
         }
+
+        public Guma GetGumaById(int? sifra)
+        {
+            Guma guma = null;
+
+            try
+            {
+                SqlConnection con = new SqlConnection();
+                con.ConnectionString = Konekcija.conn;
+                con.Open();
+                SqlCommand cmd = new SqlCommand("Select * from Guma g inner join TipGume tg on g.GumaTip=tg.TipId WHERE GumaId=" + sifra, con);
+                SqlDataReader sdr = cmd.ExecuteReader();
+
+                while (sdr.Read())
+                {
+                    guma = new Guma
+                    {
+                        GumaId = Convert.ToInt32(sdr["GumaId"]),
+                        GumaProizvodjac = sdr["GumaProizvodjac"].ToString(),
+                        GumaDimenzija = sdr["GumaDimenzija"].ToString(),
+                        GumaMaxBrzina = Convert.ToDouble(sdr["GumaMaxBrzina"]),
+                        GumaKolicina = Convert.ToInt32(sdr["GumaKolicina"]),
+                        GumaTip = new TipGume
+                        {
+                            TipId = Convert.ToInt32(sdr["TipId"]),
+                            TipNaziv = sdr["TipNaziv"].ToString(),
+                            TipOpis = sdr["TipOpis"].ToString()
+                        },
+                        GumaDatumKreiranja = Convert.ToDateTime(sdr["GumaDatumKreiranja"]),
+                        GumaDatumIzmene = sdr["GumaDatumIzmene"].ToString()
+
+                    };
+                }
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+
+            return guma;
+        }
     }
 }

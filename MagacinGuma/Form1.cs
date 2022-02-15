@@ -429,5 +429,54 @@ namespace MagacinGuma
             }
         }
 
+        private void txtTraziArtikalNarudzba_KeyDown(object sender, KeyEventArgs e)
+        {
+            GumaRepository _gumaRepository = new GumaRepository(this);
+
+            if(e.KeyCode == Keys.Enter)
+            {
+                try
+                {
+                    Guma guma = _gumaRepository.GetGumaById(int.Parse(txtTraziArtikalNarudzba.Text));
+
+                    if(guma != null)
+                    {
+                        txtNadjeniArtikal.Text = guma.GumaId + " - " + guma.GumaProizvodjac + " - " + guma.GumaDimenzija;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Trazena guma ne postoji");
+                    }
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show("Trazena guma ne postoji");
+                }
+
+            }
+        }
+
+        private void txtTraziArtikalNarudzba_Leave(object sender, EventArgs e)
+        {
+            GumaRepository _gumaRepository = new GumaRepository(this);
+
+            try
+            {
+                Guma guma = _gumaRepository.GetGumaById(int.Parse(txtTraziArtikalNarudzba.Text));
+
+                if (guma != null)
+                {
+                    txtNadjeniArtikal.Text = guma.GumaId + " - " + guma.GumaProizvodjac + " - " + guma.GumaDimenzija;
+                }
+                else
+                {
+                    MessageBox.Show("Trazena guma ne postoji");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Trazena guma ne postoji");
+            }
+        }
     }
 }
