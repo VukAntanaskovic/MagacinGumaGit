@@ -12,5 +12,12 @@ namespace MagacinGuma.Model
         public string KupacIme { get; set; }
         public string KupacPrezime { get; set; }
         public string KupacAdresa { get; set; }
+        public string IspisKupca 
+        { 
+            get
+            {
+                return KupacIme + " " + KupacPrezime + " " + KupacAdresa;
+            } 
+        }
     }
 }

@@ -42,10 +42,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AuthRepository.cs" />
+    <Compile Include="DokumentiRepository.cs" />
     <Compile Include="GumaRepository.cs" />
     <Compile Include="ILoader.cs" />
     <Compile Include="Konekcija.cs" />
     <Compile Include="KorisnikRepository.cs" />
+    <Compile Include="KupacRepository.cs" />
     <Compile Include="magacingumadbDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

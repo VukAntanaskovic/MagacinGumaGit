@@ -44,6 +44,9 @@ namespace MagacinGuma
             pnlLogin.BringToFront(); //odmah nakon inicijalizacije dovodi login panel napred
         }
 
+        public int GumaIdStavkaNarudzbenice { get; set; }
+        public int KolicinaStavkaNarudzbenice { get; set; }
+
         void ShowTabs()
         {
             if (Session.RoleId == 1)
@@ -157,20 +160,73 @@ namespace MagacinGuma
             }
         }//ucitavanje korisnika u data grid
 
+        public void LoadNarudzbenice()
+        {
+            DokumentiRepository _dokumentiRepository = new DokumentiRepository(this);
+            List<Narudzbenica> narudzbenice = new List<Narudzbenica>();
+            DataTable dataTable = new DataTable();
+            dataTable.Columns.Add("ID");
+            dataTable.Columns.Add("Kreirao");
+            dataTable.Columns.Add("Datum kreiranja");
+
+            try
+            {
+                narudzbenice = _dokumentiRepository.GetNarudzbenica();
+
+                foreach (var n in narudzbenice)
+                {
+                    dataTable.Rows.Add(n.NarudzbenicaId, n.KreiraoKorisnik.KorisnikUsername, n.DatumKreiranja);
+                }
+
+                dgvKnjizenjeRobe.DataSource = dataTable;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Greska prilikom citanja iz baze " + ex.Message);
+            }
+        }
+
+        public void LoadKupac()
+        {
+            KupacRepository _kupacRepository = new KupacRepository(this);
+            List<Kupac> listaKupaca = new List<Kupac>();
+
+            try
+            {
+                listaKupaca = _kupacRepository.GetKupac();
+            }
+            catch
+            {
+                MessageBox.Show("Greska prilikom citanja iz baze");
+            }
+
+            if (listaKupaca != null)
+            {
+                cmbKupac.DataSource = listaKupaca;
+                cmbKupac.ValueMember = "KupacId";
+                cmbKupac.DisplayMember = "IspisKupca";
+            }
+
+        }
+
 
         private void Form1_Load(object sender, EventArgs e)
         {
             List<TipGume> tipoviGuma = new List<TipGume>();
             GumaRepository _gumaRepository = new GumaRepository(this);
-            List<Korisnik> listaKorisnik = new List<Korisnik>();
+            List<Rola> role = new List<Rola>();
             KorisnikRepository _korisnikRepository = new KorisnikRepository(this);
+            RolaRepository _rolaRepository = new RolaRepository(this);
+            
 
             try
             {
                 tipoviGuma = _gumaRepository.GetTipGume();
                 LoadGume();
-                listaKorisnik = _korisnikRepository.GetKorisnik();
+                role = _rolaRepository.GetRola();
                 LoadKorisnik();
+                LoadNarudzbenice();
+                LoadKupac();
             }
             catch
             {
@@ -188,12 +244,13 @@ namespace MagacinGuma
                 cmbPretragaTipGume.DisplayMember = "TipNaziv";
             }
 
-            if (listaKorisnik != null)
+            if (role != null)
             {
-                cmbKorisnikRola.DataSource = listaKorisnik;
-                cmbKorisnikRola.ValueMember = "KorisnikId";
-                cmbKorisnikRola.DisplayMember = "KorisnikRola";
+                cmbKorisnikRola.DataSource = role;
+                cmbKorisnikRola.ValueMember = "RolaId";
+                cmbKorisnikRola.DisplayMember = "RolazNaziv";
             }
+
         }
 
         public void ShowLoading()
@@ -433,7 +490,7 @@ namespace MagacinGuma
         {
             GumaRepository _gumaRepository = new GumaRepository(this);
 
-            if(e.KeyCode == Keys.Enter)
+            if(e.KeyCode == Keys.Enter) // da li je kliknut enter
             {
                 try
                 {
@@ -442,6 +499,7 @@ namespace MagacinGuma
                     if(guma != null)
                     {
                         txtNadjeniArtikal.Text = guma.GumaId + " - " + guma.GumaProizvodjac + " - " + guma.GumaDimenzija;
+                        GumaIdStavkaNarudzbenice = guma.GumaId;
                     }
                     else
                     {
@@ -460,23 +518,317 @@ namespace MagacinGuma
         {
             GumaRepository _gumaRepository = new GumaRepository(this);
 
-            try
+            if (string.IsNullOrEmpty(txtNadjeniArtikal.Text))
             {
-                Guma guma = _gumaRepository.GetGumaById(int.Parse(txtTraziArtikalNarudzba.Text));
 
-                if (guma != null)
+                try
                 {
-                    txtNadjeniArtikal.Text = guma.GumaId + " - " + guma.GumaProizvodjac + " - " + guma.GumaDimenzija;
+                    Guma guma = _gumaRepository.GetGumaById(int.Parse(txtTraziArtikalNarudzba.Text));
+
+                    if (guma != null)
+                    {
+                        txtNadjeniArtikal.Text = guma.GumaId + " - " + guma.GumaProizvodjac + " - " + guma.GumaDimenzija;
+                        GumaIdStavkaNarudzbenice = guma.GumaId;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Trazena guma ne postoji");
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
                     MessageBox.Show("Trazena guma ne postoji");
                 }
             }
+        }
+
+        List<Guma> stavke = new List<Guma>();
+        private void btnDodajStavku_Click(object sender, EventArgs e)
+        {
+            GumaRepository _gumaRepository = new GumaRepository(this);
+
+            if(numericKolicinaNarudzbina.Value > 0)
+            {
+                try
+                {
+                    KolicinaStavkaNarudzbenice = Convert.ToInt32(numericKolicinaNarudzbina.Value);
+                    Guma guma = _gumaRepository.GetGumaById(GumaIdStavkaNarudzbenice);
+                    guma.GumaKolicina = KolicinaStavkaNarudzbenice;
+                    stavke.Add(guma);
+
+                    DataTable dataTable = new DataTable();
+                    dataTable.Columns.Add("Id");
+                    dataTable.Columns.Add("Proizvodjac");
+                    dataTable.Columns.Add("Dimenzija");
+                    dataTable.Columns.Add("Maksimalna Brzina");
+                    dataTable.Columns.Add("Kolicina");
+
+                    foreach(var g in stavke)
+                    {
+                        dataTable.Rows.Add(g.GumaId, g.GumaProizvodjac, g.GumaDimenzija, g.GumaMaxBrzina, g.GumaKolicina);
+                    }
+
+                    dgvNarudzbenicaStavke.DataSource = dataTable;
+                    numericKolicinaNarudzbina.Value = 0;
+                    txtTraziArtikalNarudzba.Text = string.Empty;
+                    txtNadjeniArtikal.Text = string.Empty;
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Kolicina mora biti veca od 0");
+            }
+        }
+
+        private void btnPotvrditeNarudzbenicu_Click(object sender, EventArgs e)
+        {
+            DokumentiRepository _dokumentiRepository = new DokumentiRepository(this);
+
+            try
+            {
+                if(stavke.Count() > 0)
+                {
+                    if (_dokumentiRepository.NewNarudzbenica(stavke)) // proverava isSuccessful
+                    {
+                        MessageBox.Show("Uspesno ste kreirali porudzbiu robe");
+                        stavke = null;
+                        numericKolicinaNarudzbina.Value = 0;
+                        txtTraziArtikalNarudzba.Text = string.Empty;
+                        txtNadjeniArtikal.Text = string.Empty;
+                        dgvNarudzbenicaStavke.DataSource = null;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Greska prilikom kreiranja narudzbenice");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Dokument ne sadrzi stavke");
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Greska: " + ex.Message);
+            }
+        }
+
+        int brNaruzbe;
+        private void btnKnjizenje_Click(object sender, EventArgs e)
+        {
+            DokumentiRepository _dokumentiRepository = new DokumentiRepository(this);
+
+            try
+            {
+
+                foreach (DataGridViewRow row in dgvKnjizenjeRobe.SelectedRows)
+                {
+                    brNaruzbe = Convert.ToInt32(row.Cells[0].Value);            
+                }
+
+                if (_dokumentiRepository.SetNewQuantity(brNaruzbe))
+                {
+                    LoadNarudzbenice();
+                    MessageBox.Show("Uspesno ste uknjizili robu");
+                }
+                else
+                {
+                    MessageBox.Show("Greska prilikom knjizenja robe");
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Greska prilikom knjizenja robe: " + ex.Message);
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            stavke = null;
+            numericKolicinaNarudzbina.Value = 0;
+            txtTraziArtikalNarudzba.Text = string.Empty;
+            txtNadjeniArtikal.Text = string.Empty;
+            dgvNarudzbenicaStavke.DataSource = null;
+        }
+
+        private void btnDodajKupca_Click(object sender, EventArgs e)
+        {
+            KupacForm kupacForm = new KupacForm(this);
+            kupacForm.ShowDialog();
+            kupacForm.Dispose();
+        }
+
+        private void txtArtikalRacun_KeyDown(object sender, KeyEventArgs e)
+        {
+
+            if (e.KeyCode == Keys.Enter)
+            {
+                GumaRepository _gumaRepository = new GumaRepository(this);
+
+                try
+                {
+                    Guma guma = _gumaRepository.GetGumaById(int.Parse(txtArtikalRacun.Text));
+
+                    if (guma != null)
+                    {
+                        txtArtikalNadjenRacun.Text = guma.GumaId + " - " + guma.GumaProizvodjac + " - " + guma.GumaDimenzija;
+                        GumaIdStavkaRacuna = guma.GumaId;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Trazena guma ne postoji");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Trazena guma ne postoji");
+                }
+            }
+        }
+
+        public int GumaIdStavkaRacuna { get; set; }
+        public int KolicinaStavkeRacun { get; set; }
+        private void txtArtikalRacun_Leave(object sender, EventArgs e)
+        {
+            GumaRepository _gumaRepository = new GumaRepository(this);
+
+            if (string.IsNullOrEmpty(txtArtikalNadjenRacun.Text))
+            {
+
+                try
+                {
+                    Guma guma = _gumaRepository.GetGumaById(int.Parse(txtArtikalRacun.Text));
+
+                    if (guma != null)
+                    {
+                        txtArtikalNadjenRacun.Text = guma.GumaId + " - " + guma.GumaProizvodjac + " - " + guma.GumaDimenzija;
+                        GumaIdStavkaRacuna = guma.GumaId;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Trazena guma ne postoji");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Trazena guma ne postoji");
+                }
+            }
+        }
+        List<Guma> stavkeRacuna = new List<Guma>();
+        private void btnDodajArtikalRacun_Click(object sender, EventArgs e)
+        {
+            GumaRepository _gumaRepository = new GumaRepository(this);
+
+            try
+            {
+                var duplikat = from n in stavkeRacuna
+                               where n.GumaId == Convert.ToInt32(GumaIdStavkaRacuna)
+                               select n;
+                if (duplikat.Count() == 0)
+                {
+                    if (_gumaRepository.CheckQuantity(GumaIdStavkaRacuna, Convert.ToInt32(numericKolicinaRacun.Value)))
+                    {
+                        if (numericKolicinaRacun.Value > 0)
+                        {
+
+                            KolicinaStavkeRacun = Convert.ToInt32(numericKolicinaRacun.Value);
+                            Guma guma = _gumaRepository.GetGumaById(GumaIdStavkaRacuna);
+                            guma.GumaKolicina = KolicinaStavkeRacun;
+                            stavkeRacuna.Add(guma);
+
+                            DataTable dataTable = new DataTable();
+                            dataTable.Columns.Add("Id");
+                            dataTable.Columns.Add("Proizvodjac");
+                            dataTable.Columns.Add("Dimenzija");
+                            dataTable.Columns.Add("Maksimalna Brzina");
+                            dataTable.Columns.Add("Kolicina");
+
+                            foreach (var g in stavkeRacuna)
+                            {
+                                dataTable.Rows.Add(g.GumaId, g.GumaProizvodjac, g.GumaDimenzija, g.GumaMaxBrzina, g.GumaKolicina);
+                            }
+
+                            dgvRacunStavke.DataSource = dataTable;
+                            numericKolicinaRacun.Value = 0;
+                            txtArtikalRacun.Text = string.Empty;
+                            txtArtikalNadjenRacun.Text = string.Empty;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Kolicina mora biti veca od 0");
+                            numericKolicinaRacun.Value = 0;
+                            txtArtikalRacun.Text = string.Empty;
+                            txtArtikalNadjenRacun.Text = string.Empty;
+                        }
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Artikal " + GumaIdStavkaRacuna + " nema trazenu kolicinu u bazi");
+                        numericKolicinaRacun.Value = 0;
+                        txtArtikalRacun.Text = string.Empty;
+                        txtArtikalNadjenRacun.Text = string.Empty;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Ne mozete uneti isti artikal vise puta");
+                }
+            }
+
             catch (Exception ex)
             {
-                MessageBox.Show("Trazena guma ne postoji");
+
             }
+        }
+
+        private void btnKreirajRacun_Click(object sender, EventArgs e)
+        {
+            DokumentiRepository _dokumentiRepository = new DokumentiRepository(this);
+
+            try
+            {
+                if (stavkeRacuna.Count() > 0)
+                {
+                    if (_dokumentiRepository.NewRacun(stavkeRacuna, Convert.ToInt32(cmbKupac.SelectedValue))) // proverava isSuccessful
+                    {
+                        MessageBox.Show("Uspesno ste kreirali racun");
+                        stavkeRacuna = null;
+                        numericKolicinaRacun.Value = 0;
+                        txtArtikalRacun.Text = string.Empty;
+                        txtNadjeniArtikal.Text = string.Empty;
+                        dgvRacunStavke.DataSource = null;
+                        cmbKupac.SelectedIndex = 0;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Greska prilikom kreiranja racuna");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Dokument ne sadrzi stavke");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Greska: " + ex.Message);
+            }
+        }
+
+        private void brnObrisiRacun_Click(object sender, EventArgs e)
+        {
+            stavkeRacuna = null;
+            numericKolicinaRacun.Value = 0;
+            txtArtikalRacun.Text = string.Empty;
+            txtNadjeniArtikal.Text = string.Empty;
+            dgvRacunStavke.DataSource = null;
+            cmbKupac.SelectedIndex = 0;
         }
     }
 }

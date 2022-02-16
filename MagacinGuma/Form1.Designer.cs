@@ -69,9 +69,10 @@
             this.label1 = new System.Windows.Forms.Label();
             this.tabPorucivanje = new System.Windows.Forms.TabPage();
             this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.btnPotvrditeNarudzbenicu = new System.Windows.Forms.Button();
+            this.dgvNarudzbenicaStavke = new System.Windows.Forms.DataGridView();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.txtNadjeniArtikal = new System.Windows.Forms.TextBox();
             this.btnDodajStavku = new System.Windows.Forms.Button();
             this.label23 = new System.Windows.Forms.Label();
             this.numericKolicinaNarudzbina = new System.Windows.Forms.NumericUpDown();
@@ -110,9 +111,25 @@
             this.label11 = new System.Windows.Forms.Label();
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.txtUsername = new System.Windows.Forms.TextBox();
-            this.txtNadjeniArtikal = new System.Windows.Forms.TextBox();
+            this.dgvKnjizenjeRobe = new System.Windows.Forms.DataGridView();
+            this.btnKnjizenje = new System.Windows.Forms.Button();
+            this.brnObrisiRacun = new System.Windows.Forms.Button();
+            this.btnKreirajRacun = new System.Windows.Forms.Button();
+            this.dgvRacunStavke = new System.Windows.Forms.DataGridView();
+            this.txtArtikalNadjenRacun = new System.Windows.Forms.TextBox();
+            this.btnDodajArtikalRacun = new System.Windows.Forms.Button();
+            this.label18 = new System.Windows.Forms.Label();
+            this.numericKolicinaRacun = new System.Windows.Forms.NumericUpDown();
+            this.label26 = new System.Windows.Forms.Label();
+            this.txtArtikalRacun = new System.Windows.Forms.TextBox();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.label27 = new System.Windows.Forms.Label();
+            this.cmbKupac = new System.Windows.Forms.ComboBox();
+            this.btnDodajKupca = new System.Windows.Forms.Button();
             this.tabCtr.SuspendLayout();
             this.ctxlogout.SuspendLayout();
+            this.tabProdaja.SuspendLayout();
             this.tabMagacin.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPretragaGume)).BeginInit();
             this.groupBox3.SuspendLayout();
@@ -123,15 +140,21 @@
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericGumaMaxBrzina)).BeginInit();
             this.tabPorucivanje.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvNarudzbenicaStavke)).BeginInit();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericKolicinaNarudzbina)).BeginInit();
+            this.tabKnjizenje.SuspendLayout();
             this.tabKorisnici.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewKorisnik)).BeginInit();
             this.groupBoxAzuriranjeKorisnik.SuspendLayout();
             this.groupBoxUnosKorisnika.SuspendLayout();
             this.pnlLoading.SuspendLayout();
             this.pnlLogin.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvKnjizenjeRobe)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvRacunStavke)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericKolicinaRacun)).BeginInit();
+            this.groupBox5.SuspendLayout();
+            this.groupBox6.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabCtr
@@ -146,10 +169,10 @@
             this.tabCtr.Controls.Add(this.tabPorucivanje);
             this.tabCtr.Controls.Add(this.tabKnjizenje);
             this.tabCtr.Controls.Add(this.tabKorisnici);
-            this.tabCtr.Location = new System.Drawing.Point(2, 2);
+            this.tabCtr.Location = new System.Drawing.Point(-1, 2);
             this.tabCtr.Name = "tabCtr";
             this.tabCtr.SelectedIndex = 0;
-            this.tabCtr.Size = new System.Drawing.Size(1344, 550);
+            this.tabCtr.Size = new System.Drawing.Size(1339, 771);
             this.tabCtr.TabIndex = 0;
             // 
             // ctxlogout
@@ -170,11 +193,16 @@
             // tabProdaja
             // 
             this.tabProdaja.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.tabProdaja.Controls.Add(this.groupBox6);
+            this.tabProdaja.Controls.Add(this.brnObrisiRacun);
+            this.tabProdaja.Controls.Add(this.btnKreirajRacun);
+            this.tabProdaja.Controls.Add(this.dgvRacunStavke);
+            this.tabProdaja.Controls.Add(this.groupBox5);
             this.tabProdaja.ForeColor = System.Drawing.SystemColors.ControlText;
             this.tabProdaja.Location = new System.Drawing.Point(4, 22);
             this.tabProdaja.Name = "tabProdaja";
-            this.tabProdaja.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
-            this.tabProdaja.Size = new System.Drawing.Size(1336, 817);
+            this.tabProdaja.Padding = new System.Windows.Forms.Padding(3);
+            this.tabProdaja.Size = new System.Drawing.Size(1331, 745);
             this.tabProdaja.TabIndex = 0;
             this.tabProdaja.Text = "Prodaja";
             // 
@@ -186,8 +214,8 @@
             this.tabMagacin.Controls.Add(this.groupBox3);
             this.tabMagacin.Location = new System.Drawing.Point(4, 22);
             this.tabMagacin.Name = "tabMagacin";
-            this.tabMagacin.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
-            this.tabMagacin.Size = new System.Drawing.Size(1336, 817);
+            this.tabMagacin.Padding = new System.Windows.Forms.Padding(3);
+            this.tabMagacin.Size = new System.Drawing.Size(1331, 745);
             this.tabMagacin.TabIndex = 1;
             this.tabMagacin.Text = "Stanje u magacinu";
             // 
@@ -214,7 +242,7 @@
             this.dgvPretragaGume.BackgroundColor = System.Drawing.SystemColors.ActiveCaption;
             this.dgvPretragaGume.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvPretragaGume.Location = new System.Drawing.Point(6, 73);
-            this.dgvPretragaGume.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dgvPretragaGume.Margin = new System.Windows.Forms.Padding(2);
             this.dgvPretragaGume.MultiSelect = false;
             this.dgvPretragaGume.Name = "dgvPretragaGume";
             this.dgvPretragaGume.ReadOnly = true;
@@ -246,7 +274,7 @@
             // btnPretraga
             // 
             this.btnPretraga.Location = new System.Drawing.Point(534, 28);
-            this.btnPretraga.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnPretraga.Margin = new System.Windows.Forms.Padding(2);
             this.btnPretraga.Name = "btnPretraga";
             this.btnPretraga.Size = new System.Drawing.Size(75, 25);
             this.btnPretraga.TabIndex = 5;
@@ -258,7 +286,7 @@
             // 
             this.cmbPretragaTipGume.FormattingEnabled = true;
             this.cmbPretragaTipGume.Location = new System.Drawing.Point(329, 33);
-            this.cmbPretragaTipGume.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cmbPretragaTipGume.Margin = new System.Windows.Forms.Padding(2);
             this.cmbPretragaTipGume.Name = "cmbPretragaTipGume";
             this.cmbPretragaTipGume.Size = new System.Drawing.Size(165, 21);
             this.cmbPretragaTipGume.TabIndex = 4;
@@ -276,7 +304,7 @@
             // txtPretragaProizvodjac
             // 
             this.txtPretragaProizvodjac.Location = new System.Drawing.Point(170, 36);
-            this.txtPretragaProizvodjac.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtPretragaProizvodjac.Margin = new System.Windows.Forms.Padding(2);
             this.txtPretragaProizvodjac.Name = "txtPretragaProizvodjac";
             this.txtPretragaProizvodjac.Size = new System.Drawing.Size(122, 20);
             this.txtPretragaProizvodjac.TabIndex = 2;
@@ -314,7 +342,7 @@
             this.tabGume.Controls.Add(this.groupBox1);
             this.tabGume.Location = new System.Drawing.Point(4, 22);
             this.tabGume.Name = "tabGume";
-            this.tabGume.Size = new System.Drawing.Size(1336, 817);
+            this.tabGume.Size = new System.Drawing.Size(1331, 745);
             this.tabGume.TabIndex = 2;
             this.tabGume.Text = "Gume";
             this.tabGume.UseVisualStyleBackColor = true;
@@ -331,9 +359,9 @@
             this.groupBox2.Controls.Add(this.label8);
             this.groupBox2.Controls.Add(this.txtAzuriranjeProizvodjac);
             this.groupBox2.Controls.Add(this.label9);
-            this.groupBox2.Location = new System.Drawing.Point(682, 14);
+            this.groupBox2.Location = new System.Drawing.Point(630, 15);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(649, 275);
+            this.groupBox2.Size = new System.Drawing.Size(690, 275);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Azuriranje gume";
@@ -435,7 +463,7 @@
             this.dgvGume.ReadOnly = true;
             this.dgvGume.RowHeadersWidth = 51;
             this.dgvGume.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvGume.Size = new System.Drawing.Size(1315, 405);
+            this.dgvGume.Size = new System.Drawing.Size(1304, 437);
             this.dgvGume.TabIndex = 1;
             this.dgvGume.SelectionChanged += new System.EventHandler(this.dgvGume_SelectionChanged);
             // 
@@ -454,7 +482,7 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(16, 14);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(660, 275);
+            this.groupBox1.Size = new System.Drawing.Size(608, 275);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Unos nove gume";
@@ -471,7 +499,7 @@
             0,
             0});
             this.numericGumaMaxBrzina.Name = "numericGumaMaxBrzina";
-            this.numericGumaMaxBrzina.Size = new System.Drawing.Size(648, 20);
+            this.numericGumaMaxBrzina.Size = new System.Drawing.Size(596, 20);
             this.numericGumaMaxBrzina.TabIndex = 11;
             // 
             // btnUnosGume
@@ -480,7 +508,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnUnosGume.Location = new System.Drawing.Point(9, 226);
             this.btnUnosGume.Name = "btnUnosGume";
-            this.btnUnosGume.Size = new System.Drawing.Size(645, 23);
+            this.btnUnosGume.Size = new System.Drawing.Size(593, 23);
             this.btnUnosGume.TabIndex = 10;
             this.btnUnosGume.Text = "Unesite novu gumu";
             this.btnUnosGume.UseVisualStyleBackColor = true;
@@ -493,7 +521,7 @@
             this.cmbTipGume.FormattingEnabled = true;
             this.cmbTipGume.Location = new System.Drawing.Point(6, 188);
             this.cmbTipGume.Name = "cmbTipGume";
-            this.cmbTipGume.Size = new System.Drawing.Size(648, 21);
+            this.cmbTipGume.Size = new System.Drawing.Size(596, 21);
             this.cmbTipGume.TabIndex = 9;
             // 
             // label5
@@ -520,7 +548,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtGumaDimenzije.Location = new System.Drawing.Point(6, 97);
             this.txtGumaDimenzije.Name = "txtGumaDimenzije";
-            this.txtGumaDimenzije.Size = new System.Drawing.Size(648, 20);
+            this.txtGumaDimenzije.Size = new System.Drawing.Size(596, 20);
             this.txtGumaDimenzije.TabIndex = 3;
             // 
             // label2
@@ -538,7 +566,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtGumaProizvodjac.Location = new System.Drawing.Point(6, 50);
             this.txtGumaProizvodjac.Name = "txtGumaProizvodjac";
-            this.txtGumaProizvodjac.Size = new System.Drawing.Size(648, 20);
+            this.txtGumaProizvodjac.Size = new System.Drawing.Size(596, 20);
             this.txtGumaProizvodjac.TabIndex = 1;
             // 
             // label1
@@ -554,53 +582,55 @@
             // 
             this.tabPorucivanje.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.tabPorucivanje.Controls.Add(this.button3);
-            this.tabPorucivanje.Controls.Add(this.button2);
-            this.tabPorucivanje.Controls.Add(this.dataGridView1);
+            this.tabPorucivanje.Controls.Add(this.btnPotvrditeNarudzbenicu);
+            this.tabPorucivanje.Controls.Add(this.dgvNarudzbenicaStavke);
             this.tabPorucivanje.Controls.Add(this.groupBox4);
             this.tabPorucivanje.Location = new System.Drawing.Point(4, 22);
             this.tabPorucivanje.Name = "tabPorucivanje";
-            this.tabPorucivanje.Size = new System.Drawing.Size(1336, 524);
+            this.tabPorucivanje.Size = new System.Drawing.Size(1331, 745);
             this.tabPorucivanje.TabIndex = 3;
             this.tabPorucivanje.Text = "Porucivanje robe";
             // 
             // button3
             // 
             this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button3.Location = new System.Drawing.Point(87, 494);
+            this.button3.Location = new System.Drawing.Point(87, 715);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(75, 23);
             this.button3.TabIndex = 4;
             this.button3.Text = "Obrisite";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
-            // button2
+            // btnPotvrditeNarudzbenicu
             // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button2.Location = new System.Drawing.Point(6, 494);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 3;
-            this.button2.Text = "Potvrdite";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btnPotvrditeNarudzbenicu.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnPotvrditeNarudzbenicu.Location = new System.Drawing.Point(6, 715);
+            this.btnPotvrditeNarudzbenicu.Name = "btnPotvrditeNarudzbenicu";
+            this.btnPotvrditeNarudzbenicu.Size = new System.Drawing.Size(75, 23);
+            this.btnPotvrditeNarudzbenicu.TabIndex = 3;
+            this.btnPotvrditeNarudzbenicu.Text = "Potvrdite";
+            this.btnPotvrditeNarudzbenicu.UseVisualStyleBackColor = true;
+            this.btnPotvrditeNarudzbenicu.Click += new System.EventHandler(this.btnPotvrditeNarudzbenicu_Click);
             // 
-            // dataGridView1
+            // dgvNarudzbenicaStavke
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.dgvNarudzbenicaStavke.AllowUserToAddRows = false;
+            this.dgvNarudzbenicaStavke.AllowUserToDeleteRows = false;
+            this.dgvNarudzbenicaStavke.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.ActiveCaption;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(6, 124);
-            this.dataGridView1.MultiSelect = false;
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.RowHeadersWidth = 51;
-            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(1325, 350);
-            this.dataGridView1.TabIndex = 2;
+            this.dgvNarudzbenicaStavke.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvNarudzbenicaStavke.BackgroundColor = System.Drawing.SystemColors.ActiveCaption;
+            this.dgvNarudzbenicaStavke.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvNarudzbenicaStavke.Location = new System.Drawing.Point(3, 124);
+            this.dgvNarudzbenicaStavke.MultiSelect = false;
+            this.dgvNarudzbenicaStavke.Name = "dgvNarudzbenicaStavke";
+            this.dgvNarudzbenicaStavke.ReadOnly = true;
+            this.dgvNarudzbenicaStavke.RowHeadersWidth = 51;
+            this.dgvNarudzbenicaStavke.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvNarudzbenicaStavke.Size = new System.Drawing.Size(1323, 585);
+            this.dgvNarudzbenicaStavke.TabIndex = 2;
             // 
             // groupBox4
             // 
@@ -614,10 +644,19 @@
             this.groupBox4.Controls.Add(this.txtTraziArtikalNarudzba);
             this.groupBox4.Location = new System.Drawing.Point(6, 3);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(1325, 114);
+            this.groupBox4.Size = new System.Drawing.Size(1320, 114);
             this.groupBox4.TabIndex = 0;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Unos artikala";
+            // 
+            // txtNadjeniArtikal
+            // 
+            this.txtNadjeniArtikal.Enabled = false;
+            this.txtNadjeniArtikal.Location = new System.Drawing.Point(6, 71);
+            this.txtNadjeniArtikal.Name = "txtNadjeniArtikal";
+            this.txtNadjeniArtikal.ReadOnly = true;
+            this.txtNadjeniArtikal.Size = new System.Drawing.Size(246, 20);
+            this.txtNadjeniArtikal.TabIndex = 5;
             // 
             // btnDodajStavku
             // 
@@ -627,6 +666,7 @@
             this.btnDodajStavku.TabIndex = 4;
             this.btnDodajStavku.Text = "Dodajte";
             this.btnDodajStavku.UseVisualStyleBackColor = true;
+            this.btnDodajStavku.Click += new System.EventHandler(this.btnDodajStavku_Click);
             // 
             // label23
             // 
@@ -669,9 +709,11 @@
             // 
             // tabKnjizenje
             // 
+            this.tabKnjizenje.Controls.Add(this.btnKnjizenje);
+            this.tabKnjizenje.Controls.Add(this.dgvKnjizenjeRobe);
             this.tabKnjizenje.Location = new System.Drawing.Point(4, 22);
             this.tabKnjizenje.Name = "tabKnjizenje";
-            this.tabKnjizenje.Size = new System.Drawing.Size(1336, 677);
+            this.tabKnjizenje.Size = new System.Drawing.Size(1331, 745);
             this.tabKnjizenje.TabIndex = 4;
             this.tabKnjizenje.Text = "Knjizenje robe";
             this.tabKnjizenje.UseVisualStyleBackColor = true;
@@ -683,7 +725,7 @@
             this.tabKorisnici.Controls.Add(this.groupBoxUnosKorisnika);
             this.tabKorisnici.Location = new System.Drawing.Point(4, 22);
             this.tabKorisnici.Name = "tabKorisnici";
-            this.tabKorisnici.Size = new System.Drawing.Size(1336, 817);
+            this.tabKorisnici.Size = new System.Drawing.Size(1331, 745);
             this.tabKorisnici.TabIndex = 5;
             this.tabKorisnici.Text = "Korisnici";
             this.tabKorisnici.UseVisualStyleBackColor = true;
@@ -730,7 +772,7 @@
             // 
             this.cbAzurirajKorisnikAktivan.AutoSize = true;
             this.cbAzurirajKorisnikAktivan.Location = new System.Drawing.Point(6, 131);
-            this.cbAzurirajKorisnikAktivan.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cbAzurirajKorisnikAktivan.Margin = new System.Windows.Forms.Padding(2);
             this.cbAzurirajKorisnikAktivan.Name = "cbAzurirajKorisnikAktivan";
             this.cbAzurirajKorisnikAktivan.Size = new System.Drawing.Size(70, 17);
             this.cbAzurirajKorisnikAktivan.TabIndex = 15;
@@ -740,7 +782,7 @@
             // label21
             // 
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(256, 21);
+            this.label21.Location = new System.Drawing.Point(253, 22);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(58, 13);
             this.label21.TabIndex = 14;
@@ -826,9 +868,11 @@
             // 
             // cmbKorisnikRola
             // 
+            this.cmbKorisnikRola.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbKorisnikRola.FormattingEnabled = true;
             this.cmbKorisnikRola.Location = new System.Drawing.Point(7, 201);
-            this.cmbKorisnikRola.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cmbKorisnikRola.Margin = new System.Windows.Forms.Padding(2);
             this.cmbKorisnikRola.Name = "cmbKorisnikRola";
             this.cmbKorisnikRola.Size = new System.Drawing.Size(775, 21);
             this.cmbKorisnikRola.TabIndex = 15;
@@ -936,16 +980,16 @@
             this.pnlLoading.BackColor = System.Drawing.SystemColors.Highlight;
             this.pnlLoading.Controls.Add(this.progressBarLoading);
             this.pnlLoading.Controls.Add(this.label4);
-            this.pnlLoading.Location = new System.Drawing.Point(2, 2);
+            this.pnlLoading.Location = new System.Drawing.Point(-1, 2);
             this.pnlLoading.Name = "pnlLoading";
-            this.pnlLoading.Size = new System.Drawing.Size(1344, 550);
+            this.pnlLoading.Size = new System.Drawing.Size(1339, 774);
             this.pnlLoading.TabIndex = 1;
             this.pnlLoading.Visible = false;
             // 
             // progressBarLoading
             // 
             this.progressBarLoading.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.progressBarLoading.Location = new System.Drawing.Point(485, 278);
+            this.progressBarLoading.Location = new System.Drawing.Point(482, 390);
             this.progressBarLoading.Name = "progressBarLoading";
             this.progressBarLoading.Size = new System.Drawing.Size(312, 23);
             this.progressBarLoading.TabIndex = 1;
@@ -956,7 +1000,7 @@
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label4.Location = new System.Drawing.Point(497, 210);
+            this.label4.Location = new System.Drawing.Point(494, 322);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(300, 55);
             this.label4.TabIndex = 0;
@@ -973,15 +1017,15 @@
             this.pnlLogin.Controls.Add(this.label11);
             this.pnlLogin.Controls.Add(this.txtPassword);
             this.pnlLogin.Controls.Add(this.txtUsername);
-            this.pnlLogin.Location = new System.Drawing.Point(2, 2);
+            this.pnlLogin.Location = new System.Drawing.Point(-1, 2);
             this.pnlLogin.Name = "pnlLogin";
-            this.pnlLogin.Size = new System.Drawing.Size(1354, 550);
+            this.pnlLogin.Size = new System.Drawing.Size(1339, 774);
             this.pnlLogin.TabIndex = 2;
             // 
             // btnLogin
             // 
             this.btnLogin.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnLogin.Location = new System.Drawing.Point(485, 269);
+            this.btnLogin.Location = new System.Drawing.Point(519, 381);
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Size = new System.Drawing.Size(328, 23);
             this.btnLogin.TabIndex = 4;
@@ -995,7 +1039,7 @@
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label12.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label12.Location = new System.Drawing.Point(485, 209);
+            this.label12.Location = new System.Drawing.Point(519, 321);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(61, 16);
             this.label12.TabIndex = 3;
@@ -1007,7 +1051,7 @@
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label11.Location = new System.Drawing.Point(485, 146);
+            this.label11.Location = new System.Drawing.Point(519, 258);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(109, 16);
             this.label11.TabIndex = 2;
@@ -1016,7 +1060,7 @@
             // txtPassword
             // 
             this.txtPassword.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.txtPassword.Location = new System.Drawing.Point(485, 228);
+            this.txtPassword.Location = new System.Drawing.Point(519, 340);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '•';
             this.txtPassword.Size = new System.Drawing.Size(328, 20);
@@ -1025,25 +1069,207 @@
             // txtUsername
             // 
             this.txtUsername.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.txtUsername.Location = new System.Drawing.Point(485, 165);
+            this.txtUsername.Location = new System.Drawing.Point(519, 277);
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.Size = new System.Drawing.Size(328, 20);
             this.txtUsername.TabIndex = 0;
             // 
-            // txtNadjeniArtikal
+            // dgvKnjizenjeRobe
             // 
-            this.txtNadjeniArtikal.Enabled = false;
-            this.txtNadjeniArtikal.Location = new System.Drawing.Point(6, 71);
-            this.txtNadjeniArtikal.Name = "txtNadjeniArtikal";
-            this.txtNadjeniArtikal.ReadOnly = true;
-            this.txtNadjeniArtikal.Size = new System.Drawing.Size(246, 20);
-            this.txtNadjeniArtikal.TabIndex = 5;
+            this.dgvKnjizenjeRobe.AllowUserToAddRows = false;
+            this.dgvKnjizenjeRobe.AllowUserToDeleteRows = false;
+            this.dgvKnjizenjeRobe.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvKnjizenjeRobe.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvKnjizenjeRobe.BackgroundColor = System.Drawing.SystemColors.ActiveCaption;
+            this.dgvKnjizenjeRobe.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvKnjizenjeRobe.Location = new System.Drawing.Point(3, 3);
+            this.dgvKnjizenjeRobe.MultiSelect = false;
+            this.dgvKnjizenjeRobe.Name = "dgvKnjizenjeRobe";
+            this.dgvKnjizenjeRobe.ReadOnly = true;
+            this.dgvKnjizenjeRobe.RowHeadersWidth = 51;
+            this.dgvKnjizenjeRobe.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvKnjizenjeRobe.Size = new System.Drawing.Size(1323, 701);
+            this.dgvKnjizenjeRobe.TabIndex = 3;
+            // 
+            // btnKnjizenje
+            // 
+            this.btnKnjizenje.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnKnjizenje.Location = new System.Drawing.Point(3, 712);
+            this.btnKnjizenje.Name = "btnKnjizenje";
+            this.btnKnjizenje.Size = new System.Drawing.Size(121, 23);
+            this.btnKnjizenje.TabIndex = 4;
+            this.btnKnjizenje.Text = "Uknjizite prijem";
+            this.btnKnjizenje.UseVisualStyleBackColor = true;
+            this.btnKnjizenje.Click += new System.EventHandler(this.btnKnjizenje_Click);
+            // 
+            // brnObrisiRacun
+            // 
+            this.brnObrisiRacun.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.brnObrisiRacun.Location = new System.Drawing.Point(88, 717);
+            this.brnObrisiRacun.Name = "brnObrisiRacun";
+            this.brnObrisiRacun.Size = new System.Drawing.Size(75, 23);
+            this.brnObrisiRacun.TabIndex = 8;
+            this.brnObrisiRacun.Text = "Obrisite";
+            this.brnObrisiRacun.UseVisualStyleBackColor = true;
+            this.brnObrisiRacun.Click += new System.EventHandler(this.brnObrisiRacun_Click);
+            // 
+            // btnKreirajRacun
+            // 
+            this.btnKreirajRacun.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnKreirajRacun.Location = new System.Drawing.Point(7, 717);
+            this.btnKreirajRacun.Name = "btnKreirajRacun";
+            this.btnKreirajRacun.Size = new System.Drawing.Size(75, 23);
+            this.btnKreirajRacun.TabIndex = 7;
+            this.btnKreirajRacun.Text = "Potvrdite";
+            this.btnKreirajRacun.UseVisualStyleBackColor = true;
+            this.btnKreirajRacun.Click += new System.EventHandler(this.btnKreirajRacun_Click);
+            // 
+            // dgvRacunStavke
+            // 
+            this.dgvRacunStavke.AllowUserToAddRows = false;
+            this.dgvRacunStavke.AllowUserToDeleteRows = false;
+            this.dgvRacunStavke.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvRacunStavke.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvRacunStavke.BackgroundColor = System.Drawing.SystemColors.ActiveCaption;
+            this.dgvRacunStavke.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvRacunStavke.Location = new System.Drawing.Point(4, 126);
+            this.dgvRacunStavke.MultiSelect = false;
+            this.dgvRacunStavke.Name = "dgvRacunStavke";
+            this.dgvRacunStavke.ReadOnly = true;
+            this.dgvRacunStavke.RowHeadersWidth = 51;
+            this.dgvRacunStavke.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvRacunStavke.Size = new System.Drawing.Size(1323, 585);
+            this.dgvRacunStavke.TabIndex = 6;
+            // 
+            // txtArtikalNadjenRacun
+            // 
+            this.txtArtikalNadjenRacun.Enabled = false;
+            this.txtArtikalNadjenRacun.Location = new System.Drawing.Point(6, 71);
+            this.txtArtikalNadjenRacun.Name = "txtArtikalNadjenRacun";
+            this.txtArtikalNadjenRacun.ReadOnly = true;
+            this.txtArtikalNadjenRacun.Size = new System.Drawing.Size(246, 20);
+            this.txtArtikalNadjenRacun.TabIndex = 5;
+            // 
+            // btnDodajArtikalRacun
+            // 
+            this.btnDodajArtikalRacun.Location = new System.Drawing.Point(430, 43);
+            this.btnDodajArtikalRacun.Name = "btnDodajArtikalRacun";
+            this.btnDodajArtikalRacun.Size = new System.Drawing.Size(75, 23);
+            this.btnDodajArtikalRacun.TabIndex = 4;
+            this.btnDodajArtikalRacun.Text = "Dodajte";
+            this.btnDodajArtikalRacun.UseVisualStyleBackColor = true;
+            this.btnDodajArtikalRacun.Click += new System.EventHandler(this.btnDodajArtikalRacun_Click);
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(277, 26);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(47, 13);
+            this.label18.TabIndex = 3;
+            this.label18.Text = "Kolicina:";
+            // 
+            // numericKolicinaRacun
+            // 
+            this.numericKolicinaRacun.Location = new System.Drawing.Point(280, 45);
+            this.numericKolicinaRacun.Maximum = new decimal(new int[] {
+            500,
+            0,
+            0,
+            0});
+            this.numericKolicinaRacun.Name = "numericKolicinaRacun";
+            this.numericKolicinaRacun.Size = new System.Drawing.Size(120, 20);
+            this.numericKolicinaRacun.TabIndex = 2;
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(7, 26);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(51, 13);
+            this.label26.TabIndex = 1;
+            this.label26.Text = "Artikal Id:";
+            // 
+            // txtArtikalRacun
+            // 
+            this.txtArtikalRacun.Location = new System.Drawing.Point(6, 45);
+            this.txtArtikalRacun.Name = "txtArtikalRacun";
+            this.txtArtikalRacun.Size = new System.Drawing.Size(246, 20);
+            this.txtArtikalRacun.TabIndex = 0;
+            this.txtArtikalRacun.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtArtikalRacun_KeyDown);
+            this.txtArtikalRacun.Leave += new System.EventHandler(this.txtArtikalRacun_Leave);
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox5.Controls.Add(this.txtArtikalNadjenRacun);
+            this.groupBox5.Controls.Add(this.btnDodajArtikalRacun);
+            this.groupBox5.Controls.Add(this.label18);
+            this.groupBox5.Controls.Add(this.numericKolicinaRacun);
+            this.groupBox5.Controls.Add(this.label26);
+            this.groupBox5.Controls.Add(this.txtArtikalRacun);
+            this.groupBox5.Location = new System.Drawing.Point(7, 5);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(529, 114);
+            this.groupBox5.TabIndex = 5;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Unos artikala";
+            // 
+            // groupBox6
+            // 
+            this.groupBox6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox6.Controls.Add(this.btnDodajKupca);
+            this.groupBox6.Controls.Add(this.cmbKupac);
+            this.groupBox6.Controls.Add(this.label27);
+            this.groupBox6.Location = new System.Drawing.Point(552, 6);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(768, 113);
+            this.groupBox6.TabIndex = 9;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Unos kupca";
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(7, 26);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(41, 13);
+            this.label27.TabIndex = 7;
+            this.label27.Text = "Kupac:";
+            // 
+            // cmbKupac
+            // 
+            this.cmbKupac.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbKupac.FormattingEnabled = true;
+            this.cmbKupac.Location = new System.Drawing.Point(10, 42);
+            this.cmbKupac.Name = "cmbKupac";
+            this.cmbKupac.Size = new System.Drawing.Size(717, 21);
+            this.cmbKupac.TabIndex = 8;
+            // 
+            // btnDodajKupca
+            // 
+            this.btnDodajKupca.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDodajKupca.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDodajKupca.Location = new System.Drawing.Point(733, 40);
+            this.btnDodajKupca.Name = "btnDodajKupca";
+            this.btnDodajKupca.Size = new System.Drawing.Size(31, 23);
+            this.btnDodajKupca.TabIndex = 9;
+            this.btnDodajKupca.Text = "+";
+            this.btnDodajKupca.UseVisualStyleBackColor = true;
+            this.btnDodajKupca.Click += new System.EventHandler(this.btnDodajKupca_Click);
             // 
             // frmPocetna
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1028, 456);
+            this.ClientSize = new System.Drawing.Size(1335, 769);
             this.Controls.Add(this.tabCtr);
             this.Controls.Add(this.pnlLoading);
             this.Controls.Add(this.pnlLogin);
@@ -1055,6 +1281,7 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tabCtr.ResumeLayout(false);
             this.ctxlogout.ResumeLayout(false);
+            this.tabProdaja.ResumeLayout(false);
             this.tabMagacin.ResumeLayout(false);
             this.tabMagacin.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPretragaGume)).EndInit();
@@ -1069,10 +1296,11 @@
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericGumaMaxBrzina)).EndInit();
             this.tabPorucivanje.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvNarudzbenicaStavke)).EndInit();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericKolicinaNarudzbina)).EndInit();
+            this.tabKnjizenje.ResumeLayout(false);
             this.tabKorisnici.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewKorisnik)).EndInit();
             this.groupBoxAzuriranjeKorisnik.ResumeLayout(false);
@@ -1083,6 +1311,13 @@
             this.pnlLoading.PerformLayout();
             this.pnlLogin.ResumeLayout(false);
             this.pnlLogin.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvKnjizenjeRobe)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvRacunStavke)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericKolicinaRacun)).EndInit();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1156,8 +1391,8 @@
         private System.Windows.Forms.DataGridView dgvPretragaGume;
         private System.Windows.Forms.Label lblNePostojiUnos;
         private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.Button btnPotvrditeNarudzbenicu;
+        private System.Windows.Forms.DataGridView dgvNarudzbenicaStavke;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Button btnDodajStavku;
         private System.Windows.Forms.Label label23;
@@ -1170,6 +1405,22 @@
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.CheckBox cbAzurirajKorisnikAktivan;
         private System.Windows.Forms.TextBox txtNadjeniArtikal;
+        private System.Windows.Forms.Button btnKnjizenje;
+        private System.Windows.Forms.DataGridView dgvKnjizenjeRobe;
+        private System.Windows.Forms.Button brnObrisiRacun;
+        private System.Windows.Forms.Button btnKreirajRacun;
+        private System.Windows.Forms.DataGridView dgvRacunStavke;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.TextBox txtArtikalNadjenRacun;
+        private System.Windows.Forms.Button btnDodajArtikalRacun;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.NumericUpDown numericKolicinaRacun;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.TextBox txtArtikalRacun;
+        private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.Button btnDodajKupca;
+        private System.Windows.Forms.ComboBox cmbKupac;
+        private System.Windows.Forms.Label label27;
     }
 }
 

@@ -66,7 +66,7 @@ namespace MagacinGuma.Repository
                 con.Open();
                 SqlCommand cmd = new SqlCommand("INSERT INTO Korisnik VALUES('" + korisnik.KorisnikIme + "', '" + korisnik.KorisnikPrezime + "', '"
                                                 +korisnik.KorisnikUsername+ "', '" + korisnik.KorisnikPassword+"',"+korisnik.KorisnikRola+",'"
-                                                +korisnik.KorisnikAktivan+"')", con);
+                                                + true +"')", con);
                 cmd.ExecuteNonQuery();
                 isSuccessful = true;
             }

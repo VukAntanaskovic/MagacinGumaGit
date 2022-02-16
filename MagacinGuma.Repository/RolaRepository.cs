@@ -30,18 +30,12 @@ namespace MagacinGuma.Repository
                 SqlCommand cmd = new SqlCommand("SELECT * FROM Rola", con);
                 SqlDataReader sdr = cmd.ExecuteReader();
 
-                tipRola.Add(new Rola
-                {
-                    RolaId = 0,
-                    RolazNaziv = "--Select--"
-                });
-
                 while (sdr.Read())
                 {
                     tipRola.Add(new Rola
                     {
                         RolaId = Convert.ToInt32(sdr["RolaId"]),
-                        RolazNaziv = sdr["RolazNaziv"].ToString()
+                        RolazNaziv = sdr["RolaNaziv"].ToString()
                     });
                 }
             }

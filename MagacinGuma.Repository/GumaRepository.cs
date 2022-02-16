@@ -213,6 +213,7 @@ namespace MagacinGuma.Repository
 
         public Guma GetGumaById(int? sifra)
         {
+            _loader.ShowLoading();
             Guma guma = null;
 
             try
@@ -246,10 +247,42 @@ namespace MagacinGuma.Repository
             }
             catch(Exception ex)
             {
+                _loader.HideLoading();
                 throw ex;
             }
 
+            _loader.HideLoading();
             return guma;
+        }
+
+
+        public bool CheckQuantity(int sifra, int kolicina)
+        {
+            _loader.ShowLoading();
+            bool isOk = false;
+            int kolicinaUBazi;
+
+            try
+            {
+                SqlConnection con = new SqlConnection();
+                con.ConnectionString = Konekcija.conn;
+                con.Open();
+                SqlCommand cmd = new SqlCommand("Select GumaKolicina from Guma WHERE GumaId=" + sifra, con);
+                kolicinaUBazi =Convert.ToInt32(cmd.ExecuteScalar());
+
+                if(kolicina <= kolicinaUBazi)
+                {
+                    isOk = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                _loader.HideLoading();
+                throw ex;
+            }
+
+            _loader.HideLoading();
+            return isOk;
         }
     }
 }
